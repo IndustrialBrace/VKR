@@ -233,3 +233,142 @@
 1. Открыть каждую ссылку и пометить, какие открываются у вас, какие нет — заменю проблемные.
 2. Когда вы добавите 5–10 практических русскоязычных источников именно по Face2 (РБК, «Коммерсантъ», «Реальное время», TAdviser, FINOPOLIS), у вас наберётся 50–55 пунктов — комфортный запас для требуемых ИУЭиФ 40.
 3. Если хотите — могу написать черновик параграфа 1.3 «Особенности продвижения биометрических технологий» с использованием 6–8 источников из этого списка, чтобы было понятно, как они «склеиваются» в текст.
+
+
+---
+
+## Дополнительные источники к параграфу 2.2 — сравнение Face2 с конкурентами (бесплатные, открытый доступ)
+
+> Сводка проверяемых количественных данных (точность, скорость, объёмы внедрений, обороты) по биометрическим решениям Сбера, VisionLabs, BioSmart, OVISION и Face2.
+
+### А. Биометрия Сбербанка («оплата улыбкой»)
+
+58. **TASS, июль 2024.** Monthly turnover of biometric transactions reaching $11.5 mln — Sber. ~700 000 терминалов биоэквайринга; время транзакции до 6 с (план снизить до 2 с в 2025 г.).
+    URL: <https://tass.com/economy/1824763>
+
+59. **Известия (iz.ru), октябрь 2025.** Russians have become four times more likely to pay using biometrics. Оборот биоэквайринга Сбера: 2024 — 21 млрд ₽; 2025 — 116 млрд ₽ (×5,5); по данным ЦБ — 100 млн транзакций за 1H2025.
+    URL: <https://iz.ru/en/1967766/2025-10-07/russians-have-become-four-times-more-likely-pay-using-biometrics>
+
+60. **Reuters, апрель 2021.** «Pay with a glance»: Russia's Sberbank rolling out face-recognition payments. Время оплаты лицом ~3 с (vs 15 с картой и 34 с наличными), пилот Сбер × Магнит — 100 магазинов.
+    URL: <https://www.reuters.com/article/russia-technology-sberbank-face/pay-with-a-glance-russias-sberbank-rolling-out-face-recognition-payments-idUSL8N2MF4BF>
+
+61. **Sber Conf «Сделано в Сбере» — корпоративный лендинг.** Презентационные числа по «эмоциональным терминалам» и оплате улыбкой.
+    URL: <https://www.sber.ru/conf>
+
+62. **TAdviser — карточка «Биометрия Сбербанка».** Хронология внедрений, города, число точек.
+    URL: <https://www.tadviser.ru/index.php/Продукт:Биометрия_Сбербанка>
+
+63. **Habr — корпоративный блог Сбера.** Технические статьи об архитектуре биометрической системы (нагрузка, точность).
+    URL: <https://habr.com/ru/companies/sberbank/>
+
+### Б. VisionLabs (LUNA Platform / LUNA POS)
+
+64. **NIST FRVT 1:1 — отчёт по VisionLabs (Report Card).** FNMR при FMR=10⁻⁵ по датасетам visa-border, mugshot, kiosk; динамика точности по версиям алгоритма. **Главный объективный источник по точности.**
+    URL: <https://face.nist.gov/frte/reportcards/11/visionlabs_011.html>
+
+65. **NIST FRVT 1:N — общий рейтинг.** Позиция VisionLabs среди ~200 разработчиков мира.
+    URL: <https://pages.nist.gov/frvt/html/frvt1N.html>
+
+66. **NIST FRVT 1:1 — общий рейтинг.** Сводная таблица по разработчикам.
+    URL: <https://pages.nist.gov/frvt/html/frvt11.html>
+
+67. **VisionLabs Documentation.** ТТХ LUNA: режимы 1:1 / 1:N / M:N, liveness, оценка качества по ISO/IEC 19794-5:2011.
+    URL: <https://docs.visionlabs.ai/>
+
+68. **Сайт VisionLabs (RU).** Кейсы, продукты, отраслевые цифры.
+    URL: <https://visionlabs.ai/>
+
+69. **Habr — блог VisionLabs.** Технические статьи с числами: точность liveness, скорость на разных GPU, размер базы.
+    URL: <https://habr.com/ru/companies/visionlabs/>
+
+70. **TAdviser — карточка VisionLabs.** Кейсы внедрений, выручка, история сделки с МТС (декабрь 2021, ~7 млрд ₽).
+    URL: <https://www.tadviser.ru/index.php/Компания:VisionLabs>
+
+71. **CNews — тег VisionLabs.** Свежие пресс-релизы 2023–2025 гг., объёмы контрактов.
+    URL: <https://www.cnews.ru/tag/visionlabs>
+
+### В. BioSmart (ООО «Прософт-Биометрикс»)
+
+72. **bio-smart.ru — официальный сайт производителя.** Карточки моделей с ТТХ: FAR ≤ 10⁻⁶, FRR, скорость распознавания (<1 с), ёмкость базы (до 50 000 / 100 000 шаблонов).
+    URL: <https://bio-smart.ru/>
+
+73. **bio-smart.ru — линейка биометрических терминалов.** Прямые паспорта BioSmart Quasar, BioSmart Mini, BioSmart Pro.
+    URL: <https://bio-smart.ru/produkty/biometricheskiye-terminaly/>
+
+74. **prosoftbiometrics.ru — корпоративный сайт «Прософт-Биометрикс».** История компании (с 2002 г.), кейсы, сертификаты, патент в США на сканер вен ладони.
+    URL: <https://prosoftbiometrics.ru/>
+
+75. **TAdviser — карточка «Прософт-Биометрикс / BioSmart».** Кейсы внедрений (РЖД, заводы, спорткомплексы), число объектов.
+    URL: <https://www.tadviser.ru/index.php/Компания:Прософт-Биометрикс>
+
+76. **CNews — тег BioSmart.** Пресс-релизы и кейсы по проектам.
+    URL: <https://www.cnews.ru/tag/biosmart>
+
+77. **biosmarttech.tilda.ws — англоязычная витрина BioSmart (для рынков ЕС).** Подтверждает: на рынке с 2006 г., патент в США, ISO 9001, выход на рынок ЕС в 2018 г.; 3D-стерео-камера с адаптивной подсветкой.
+    URL: <https://biosmarttech.tilda.ws/technology>
+
+### Г. OVISION (ООО «Овижн»)
+
+78. **ovision.ru — официальный сайт.** Точность ≥99,9%, скорость ≤0,3 с, ёмкость до 100 000 лиц, liveness, ссылки на NIST-результаты.
+    URL: <https://ovision.ru/>
+
+79. **ovision.ru — продукты.** ТТХ конкретных моделей терминалов и ПО.
+    URL: <https://ovision.ru/products/>
+
+80. **Единый реестр российского ПО Минцифры — запись об OVISION Face.** Подтверждение российского происхождения (для обоснования импортозамещения).
+    URL: <https://reestr.digital.gov.ru/reestr/?search=ovision>
+
+81. **TAdviser — карточка OVISION.** Кейсы внедрений (Газпром, ВТБ, X5, школы), число объектов, объём проектов.
+    URL: <https://www.tadviser.ru/index.php/Компания:OVISION>
+
+82. **CNews — тег OVISION.** Пресс-релизы 2023–2025 гг.
+    URL: <https://www.cnews.ru/tag/ovision>
+
+### Д. Face2 (ПАО «Ак Барс» Банк)
+
+83. **akbars.ru — раздел новостей банка.** Поиск по словам «Face2», «биометрия», «оплата лицом» — пресс-релизы о пилотах в Татарстане.
+    URL: <https://www.akbars.ru/news/>
+
+84. **akbars.ru — раздел инноваций и сервисов.** Описание Face2, кейсы.
+    URL: <https://www.akbars.ru/about/innovations/>
+
+85. **TAdviser — карточка ПАО «Ак Барс» Банк.** ИТ-проекты банка по биометрии, числа пилотов.
+    URL: <https://www.tadviser.ru/index.php/Компания:Ак_Барс_Банк>
+
+86. **«Реальное время» (татарстанское СМИ).** Поиск «Ак Барс биометрия» — местные пилоты Face2, конкретные точки.
+    URL: <https://realnoevremya.ru/>
+
+87. **«Бизнес-Online» (татарстанское СМИ).** Поиск «Face2» — эксклюзивные интервью представителей банка.
+    URL: <https://www.business-gazeta.ru/>
+
+88. **CNews — тег «Ак Барс Банк».** Пресс-релизы по ИТ-инициативам банка.
+    URL: <https://www.cnews.ru/tag/Ак_Барс_Банк>
+
+89. **FINOPOLIS — официальный сайт форума инновационных финансовых технологий.** Программы и видео выступлений Ак Барс Банка о Face2.
+    URL: <https://finopolis.ru/>
+
+90. **YouTube — официальный канал «Ак Барс Банк».** Презентации Face2 на конференциях, числа из выступлений.
+    URL: <https://www.youtube.com/@akbarsbank>
+
+### Е. Общерыночный и регуляторный контекст
+
+91. **Habr — обзорная статья «Терминалы распознавания лиц в системах контроля доступа».** Сравнение разных терминалов СКУД с цифрами FAR/FRR.
+    URL: <https://habr.com/ru/articles/518706/>
+
+92. **TAdviser — раздел «Биометрические технологии (рынок России)».** Объём российского рынка биометрии по годам, прогнозы, доли вендоров.
+    URL: <https://www.tadviser.ru/index.php/Статья:Биометрические_технологии_(рынок_России)>
+
+---
+
+## Сводная таблица «что измерять у каждого вендора» (для параграфа 2.2)
+
+| Метрика | Сбер | VisionLabs | BioSmart | OVISION | Face2 |
+|---|---|---|---|---|---|
+| Точность 1:N (FNIR @ FMR=10⁻⁵) | косвенно через VisionLabs | NIST FRVT 1:N (п. 65) | паспорт изделия (п. 73) | ovision.ru (п. 78) | нет публ. данных |
+| Точность 1:1 (FNMR @ FMR=10⁻⁶) | косвенно | NIST FRVT 1:1 (п. 64) | паспорт (п. 73) | ovision.ru (п. 78) | нет публ. данных |
+| Скорость верификации, с | TASS, Reuters (п. 58, 60) | docs.visionlabs.ai (п. 67) | паспорт (п. 73) | ovision.ru (п. 78) | пресс-релизы банка (п. 83) |
+| Ёмкость базы шаблонов | n/a | LUNA Platform (п. 67) | паспорт Quasar (п. 73) | ovision.ru (п. 78) | n/a |
+| Liveness / антиспуфинг | — | LUNA Liveness (п. 67) | паспорт (п. 73) | ovision.ru (п. 78) | n/a |
+| Кол-во внедрений | TASS, Известия (п. 58, 59) | TAdviser (п. 70) | TAdviser (п. 75) | TAdviser (п. 81) | akbars.ru (п. 83) |
+| Объём оборота / транзакций | TASS, iz.ru (п. 58, 59) | n/a (B2B) | n/a (B2B) | n/a (B2B) | СМИ Татарстана (п. 86, 87) |
+| Регуляторный статус (ЕБС, реестры) | bio.rt.ru, cbr.ru (п. 28, 33) | reestr.digital.gov.ru (п. 80) | reestr.digital.gov.ru | reestr.digital.gov.ru (п. 80) | bio.rt.ru, cbr.ru |
