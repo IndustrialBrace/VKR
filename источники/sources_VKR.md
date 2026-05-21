@@ -55,7 +55,9 @@
 
 ## Конкуренты на рынке биометрии (вендоры и сервисы)
 
-37. [VisionLabs — корпоративная страница visionlabs.ru: позиционирование, продукты, независимые сертификации (NIST FRTE, iBeta, CVPR, FIDO), партнёры (ЦБТ, ЦРТ, Нетрис, ITV, ВК ИТС, Macroscop)](VisionLabs (visionlabs.ru).md)
+37. [VisionLabs — корпоративная страница visionlabs.ru: позиционирование, продукты (LUNA Platform/Cars/ID/Pass/Kiosk + Deepfake Detection + ПАК «ВЛ-БИО»), отрасли, сценарии, независимые сертификации (NIST FRTE, iBeta, CVPR, FIDO), партнёры (ЦБТ, ЦРТ, Нетрис, ITV, ВК ИТС, Macroscop)](VisionLabs (visionlabs.ru).md)
+
+39. [OVISION — корпоративный сайт ovision.ru: производитель полного цикла биометрических СКУД, аккредитации Минцифры/Минпромторга/реестра ПО/ЕБС/СКЗИ, продукты OGATE / OGATE Thermo / OGATE Control, клиенты — РЖД, Мосэнергосбыт, Правительство Тульской области](OVISION (ovision.ru).md)
 
 ## Деловая пресса о рынке биометрии
 
