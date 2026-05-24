@@ -934,12 +934,145 @@ def slide_7() -> str:
 
 
 # ---------------------------------------------------------------------------
-# Слайд 8. Задача 5 — эффективность
+# Слайд 8 (новый). Рекомендации по сегментам аудитории B2B / B2C / B2G
+# ---------------------------------------------------------------------------
+
+def slide_recommendations() -> str:
+    """Новый слайд — рекомендации по продвижению Face2 для трёх сегментов
+    целевой аудитории: B2B (бизнес), B2C (конечные пользователи),
+    B2G (государство и регуляторы). Логически — слайд 8."""
+    idg = IdGen(1100)
+    parts = [SLIDE_HEAD, content_slide_chrome(idg, 8),
+             title_block(idg,
+                         "РЕКОМЕНДАЦИИ ПО СЕГМЕНТАМ ЦЕЛЕВОЙ АУДИТОРИИ")]
+
+    # Подзаголовок
+    parts.append(text_box(
+        idg, CONTENT_X, 800000, CONTENT_W, 350000,
+        para(run("Дифференцированный подход к продвижению Face2: "
+                 "сегменты решают разные задачи и требуют разных каналов",
+                 sz=1300, italic=True, color=BLUE), align="l"),
+        name="Subtitle", anchor="ctr",
+    ))
+
+    # 3 колонки
+    col_y = 1300000
+    col_h = 3300000
+    col_gap = 100000
+    col_w = (CONTENT_W - 2 * col_gap) // 3
+
+    segments = [
+        (
+            "B2B",
+            "Банки, ритейл, заводы,\nтранспорт, интеграторы",
+            "продажи КБС и линейки\nFace2 (Pay/Pass/Check-in)",
+            [
+                "Отраслевые конференции и форумы\n(ФинТех, СБП, Cipher, TAdviser)",
+                "Кейсы АББ и Татарстана\nкак референс-проекты",
+                "Партнёрства с банковскими\nинтеграторами и НСПК",
+                "Платные пилоты и демо-стенды\nна площадке клиента",
+                "White papers и экспертный\nконтент в TAdviser, Banki.ru",
+                "Прямые продажи через KAM\nи менеджеров по отраслям",
+            ],
+        ),
+        (
+            "B2C",
+            "Клиенты банков, пассажиры\nметро, посетители ритейла",
+            "снятие барьеров доверия,\nрост Face2Pay-аудитории",
+            [
+                "Образовательный контент\nв ВК, Telegram, Дзен",
+                "Видео-демо в отделениях\nи мобильном приложении АББ",
+                "Бесшовный UX в казанском\nметро как образцовый кейс",
+                "Бонусы и кешбэк за оплату\nпо лицу (Face2Pay)",
+                "Прозрачная коммуникация\nправ клиента по 572-ФЗ",
+                "Локальные медиа Татарстана\nи лидеры мнений",
+            ],
+        ),
+        (
+            "B2G",
+            "Минцифры, ЦБ РФ, регионы,\nгоскорпорации, ФОИВ",
+            "GR-доступ к тендерам\nи федеральным пилотам",
+            [
+                "Акцент на КБС № 4-А\nи реестре отечественного ПО",
+                "Импортозамещение и нацпроект\n«Цифровая экономика»",
+                "Совместные пилоты с Минцифры РТ\nи смежных регионов",
+                "Участие в РСПП, Ассоциации\nбанков России, АРБ",
+                "Татарстан как технологический\nхаб биометрии в ПФО",
+                "Закрытые презентации на\nотраслевых форумах ЦБ и ФСБ",
+            ],
+        ),
+    ]
+
+    for i, (name, audience, goal, recs) in enumerate(segments):
+        x = CONTENT_X + i * (col_w + col_gap)
+
+        # Шапка с названием сегмента (синий, крупно)
+        parts.append(filled_box(
+            idg, x, col_y, col_w, 480000,
+            para(run(name, sz=2400, bold=True, color=WHITE), align="ctr"),
+            fill=BLUE, name=f"Seg{i}H", anchor="ctr",
+        ))
+
+        # Подшапка — целевая аудитория
+        aud_paras = [
+            para(run(line, sz=900, color=WHITE), align="ctr",
+                 space_before=(50 if j else 0))
+            for j, line in enumerate(audience.split("\n"))
+        ]
+        parts.append(filled_box(
+            idg, x, col_y + 480000, col_w, 480000,
+            *aud_paras, fill=GRAY, name=f"Seg{i}A", anchor="ctr",
+        ))
+
+        # Цель сегмента
+        goal_paras = [
+            para(run("Цель: ", sz=950, bold=True, color=BLUE),
+                 run(goal.replace("\n", " "), sz=950, color=BLACK),
+                 align="l"),
+        ]
+        parts.append(filled_box(
+            idg, x, col_y + 960000, col_w, 460000,
+            *goal_paras, fill=ACCENT_LIGHT, name=f"Seg{i}G", anchor="ctr",
+        ))
+
+        # Список рекомендаций
+        rec_paras = [
+            para(run("Рекомендации:", sz=1000, bold=True, color=BLUE),
+                 align="l"),
+        ]
+        for rec in recs:
+            rec_paras.append(bullet_para(
+                run(rec.replace("\n", " "), sz=900, color=BLACK),
+                space_before=120,
+            ))
+        parts.append(filled_box(
+            idg, x, col_y + 1420000, col_w, col_h - 1420000,
+            *rec_paras, fill=WHITE, line_color=BLUE, line_w=6350,
+            name=f"Seg{i}R", anchor="t",
+        ))
+
+    # Нижний вывод
+    parts.append(filled_box(
+        idg, CONTENT_X, 4660000, CONTENT_W, 380000,
+        para(run("→ Сегментированный подход усиливает push + pull-стратегию: ",
+                 sz=1100, bold=True, color=WHITE),
+             run("B2B и B2G формируют контракты, B2C — массу пользователей "
+                 "и социальное доверие к биометрии",
+                 sz=1100, color=WHITE), align="ctr"),
+        fill=BLUE, name="Footer", anchor="ctr",
+    ))
+
+    parts.append(SLIDE_TAIL)
+    return "".join(parts)
+
+
+# ---------------------------------------------------------------------------
+# Слайд 9 (физический файл slide8.xml). Задача 5 — эффективность
 # ---------------------------------------------------------------------------
 
 def slide_8() -> str:
     idg = IdGen(800)
-    parts = [SLIDE_HEAD, content_slide_chrome(idg, 8),
+    parts = [SLIDE_HEAD, content_slide_chrome(idg, 9),
              title_block(idg, "РЕЗУЛЬТАТЫ ПО ЗАДАЧЕ 5: ЭФФЕКТИВНОСТЬ И РИСКИ")]
 
     # Левая часть: KPI-целевые показатели
@@ -1061,12 +1194,12 @@ def slide_8() -> str:
 
 
 # ---------------------------------------------------------------------------
-# Слайд 9. Выводы
+# Слайд 10 (физический файл slide9.xml). Выводы
 # ---------------------------------------------------------------------------
 
 def slide_9() -> str:
     idg = IdGen(900)
-    parts = [SLIDE_HEAD, content_slide_chrome(idg, 9),
+    parts = [SLIDE_HEAD, content_slide_chrome(idg, 10),
              title_block(idg, "ВЫВОДЫ")]
 
     # Четыре блока с выводами
@@ -1176,25 +1309,99 @@ SLIDES = {
     8: slide_8,
     9: slide_9,
     10: slide_10,
+    # Физический файл slide11.xml — новый слайд с рекомендациями
+    # B2B / B2C / B2G. В порядке показа презентации он идёт 8-м
+    # (между «Стратегией» и «Эффективностью / рисками»).
+    11: slide_recommendations,
 }
 
 
+# ---------------------------------------------------------------------------
+# Сопровождающие XML-файлы для нового слайда 11
+# ---------------------------------------------------------------------------
+
+SLIDE11_RELS = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image2.png"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide" Target="../notesSlides/notesSlide11.xml"/><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout2.xml"/><Relationship Id="rId5" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image4.png"/><Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image3.png"/></Relationships>'''
+
+NOTES_SLIDE11_XML = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:notes xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" showMasterSp="0" showMasterPhAnim="0"><p:cSld><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name="Group"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="2" name="Notes Body"/><p:cNvSpPr txBox="1"><a:spLocks noGrp="1"/></p:cNvSpPr><p:nvPr><p:ph type="body" idx="1"/></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="685800" y="4400550"/><a:ext cx="5486400" cy="3600600"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr spcFirstLastPara="1" wrap="square" lIns="91425" tIns="45700" rIns="91425" bIns="45700" anchor="t" anchorCtr="0"><a:noAutofit/></a:bodyPr><a:lstStyle/><a:p><a:pPr marL="0" lvl="0" indent="0" algn="l" rtl="0"><a:spcBef><a:spcPts val="0"/></a:spcBef><a:spcAft><a:spcPts val="0"/></a:spcAft><a:buNone/></a:pPr><a:endParaRPr/></a:p></p:txBody></p:sp></p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:notes>'''
+
+NOTES_SLIDE11_RELS = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="../slides/slide11.xml"/><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesMaster" Target="../notesMasters/notesMaster1.xml"/></Relationships>'''
+
+
+def _patch_content_types(data: bytes) -> bytes:
+    """Регистрируем slide11.xml и notesSlide11.xml в [Content_Types].xml."""
+    text = data.decode("utf-8")
+    extra = (
+        '<Override PartName="/ppt/slides/slide11.xml" '
+        'ContentType="application/vnd.openxmlformats-officedocument.'
+        'presentationml.slide+xml"/>'
+        '<Override PartName="/ppt/notesSlides/notesSlide11.xml" '
+        'ContentType="application/vnd.openxmlformats-officedocument.'
+        'presentationml.notesSlide+xml"/>'
+    )
+    if "slide11.xml" not in text:
+        text = text.replace("</Types>", extra + "</Types>")
+    return text.encode("utf-8")
+
+
+def _patch_presentation_rels(data: bytes) -> bytes:
+    """Добавляем relationship rId32 → slides/slide11.xml."""
+    text = data.decode("utf-8")
+    extra = (
+        '<Relationship Id="rId32" '
+        'Type="http://schemas.openxmlformats.org/officeDocument/2006/'
+        'relationships/slide" Target="slides/slide11.xml"/>'
+    )
+    if 'Target="slides/slide11.xml"' not in text:
+        text = text.replace("</Relationships>", extra + "</Relationships>")
+    return text.encode("utf-8")
+
+
+def _patch_presentation_xml(data: bytes) -> bytes:
+    """Вставляем новый <p:sldId> между rId8 (слайд 7) и rId9 (слайд 8 старый)
+    так, чтобы новый слайд показывался 8-м по порядку."""
+    text = data.decode("utf-8")
+    new_entry = '<p:sldId id="285" r:id="rId32"/>'
+    if new_entry not in text:
+        # rId8 — слайд 7 (стратегия), после него вставляем рекомендации
+        anchor = '<p:sldId id="283" r:id="rId8"/>'
+        text = text.replace(anchor, anchor + new_entry, 1)
+    return text.encode("utf-8")
+
+
 def build(template_path: Path, output_path: Path) -> None:
-    """Собирает новый pptx, заменяя только тела слайдов."""
+    """Собирает новый pptx, заменяя тела слайдов и добавляя slide11."""
     with zipfile.ZipFile(template_path, "r") as src:
         names = src.namelist()
         with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as dst:
             for name in names:
                 data = src.read(name)
-                # Заменяем только ppt/slides/slideN.xml
+                # Заменяем ppt/slides/slideN.xml для существующих 1..10
                 if name.startswith("ppt/slides/slide") and name.endswith(".xml") \
                         and "/_rels/" not in name:
-                    # извлекаем номер
-                    base = name.rsplit("/", 1)[1]  # slideN.xml
+                    base = name.rsplit("/", 1)[1]
                     num = int(base.replace("slide", "").replace(".xml", ""))
                     if num in SLIDES:
                         data = SLIDES[num]().encode("utf-8")
+                elif name == "[Content_Types].xml":
+                    data = _patch_content_types(data)
+                elif name == "ppt/_rels/presentation.xml.rels":
+                    data = _patch_presentation_rels(data)
+                elif name == "ppt/presentation.xml":
+                    data = _patch_presentation_xml(data)
                 dst.writestr(name, data)
+
+            # Дописываем новые файлы для slide11
+            dst.writestr("ppt/slides/slide11.xml",
+                         SLIDES[11]().encode("utf-8"))
+            dst.writestr("ppt/slides/_rels/slide11.xml.rels",
+                         SLIDE11_RELS.encode("utf-8"))
+            dst.writestr("ppt/notesSlides/notesSlide11.xml",
+                         NOTES_SLIDE11_XML.encode("utf-8"))
+            dst.writestr("ppt/notesSlides/_rels/notesSlide11.xml.rels",
+                         NOTES_SLIDE11_RELS.encode("utf-8"))
 
 
 if __name__ == "__main__":
