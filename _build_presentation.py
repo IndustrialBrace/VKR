@@ -938,121 +938,202 @@ def slide_7() -> str:
 # ---------------------------------------------------------------------------
 
 def slide_8() -> str:
+    """
+    Слайд 8: финансовая оценка стратегии (NPV, PP, PI, IRR) +
+    таблица денежных потоков + компактная полоса рисков.
+
+    Параметры финансовой модели:
+        I0 = 25 млн ₽   (стартовые инвестиции)
+        r  = 18 %       (ключевая ставка ЦБ РФ + премия за риск)
+        CF = [8, 18, 28, 35, 38]  млн ₽   (1..5 годы)
+
+    Расчёт (в Python с двойной точностью):
+        NPV = 46,41 млн ₽
+        PP  = 23,3 мес.
+        DPP = 27,7 мес.
+        PI  = 2,86
+        IRR = 66,2 %
+    """
     idg = IdGen(800)
     parts = [SLIDE_HEAD, content_slide_chrome(idg, 8),
-             title_block(idg, "РЕЗУЛЬТАТЫ ПО ЗАДАЧЕ 5: ЭФФЕКТИВНОСТЬ И РИСКИ")]
+             title_block(idg,
+                         "РЕЗУЛЬТАТЫ ПО ЗАДАЧЕ 5: ФИНАНСОВАЯ ЭФФЕКТИВНОСТЬ И РИСКИ")]
 
-    # Левая часть: KPI-целевые показатели
+    # ----- Полоса параметров модели под заголовком --------------------------
+    params_paras = [
+        para(
+            run("Параметры модели: ", sz=1000, bold=True, color=BLUE),
+            run("I", sz=1000, color=BLACK),
+            run("0", sz=700, color=BLACK),
+            run(" = 25 млн ₽   ·   r = 18 %   ·   горизонт 5 лет   ·   "
+                "CF = (8 / 18 / 28 / 35 / 38) млн ₽",
+                sz=1000, color=BLACK),
+            align="l",
+        ),
+    ]
     parts.append(text_box(
-        idg, CONTENT_X, 800000, 4400000, 350000,
-        para(run("ЦЕЛЕВЫЕ ПОКАЗАТЕЛИ ЗА 24 МЕСЯЦА",
-                 sz=1200, bold=True, color=BLUE), align="l"),
-        name="KPITitle", anchor="ctr",
+        idg, CONTENT_X, 770000, CONTENT_W, 280000,
+        *params_paras, name="Params", anchor="ctr",
     ))
 
-    kpi_data = [
-        ("Активных B2B-контрактов",     "≥ 25", "шт./год"),
-        ("Биометрических векторов",     "≥ 500 тыс.", "в КБС АББ"),
-        ("Конверсия лид → пилот",       "≥ 30 %", ""),
-        ("Конверсия пилот → контракт",  "≥ 50 %", ""),
-        ("Доля рынка КБС в ПФО",        "≥ 20 %", ""),
-        ("ROI стратегии продвижения",   "≥ 180 %", "за 24 мес."),
+    # ----- Ряд из 4 финансовых KPI-плиток ----------------------------------
+    kpi_y = 1080000
+    kpi_h = 950000
+    gap = 80000
+    kpi_w = (CONTENT_W - gap * 3) // 4
+
+    kpi_tiles = [
+        ("NPV",
+         "46,4 млн ₽",
+         "чистый дисконтированный\nдоход стратегии"),
+        ("PP",
+         "23 мес.",
+         "простой срок\nокупаемости (DPP ≈ 28 мес.)"),
+        ("PI",
+         "2,86",
+         "индекс доходности —\nна 1 ₽ инвестиций 2,86 ₽"),
+        ("IRR",
+         "66,2 %",
+         "внутренняя норма\nдоходности (≫ r = 18 %)"),
     ]
+    for i, (label, value, caption) in enumerate(kpi_tiles):
+        x = CONTENT_X + i * (kpi_w + gap)
+        # Метка сверху
+        parts.append(filled_box(
+            idg, x, kpi_y, kpi_w, 280000,
+            para(run(label, sz=1300, bold=True, color=WHITE), align="ctr"),
+            fill=GRAY, name=f"FinL{i}", anchor="ctr",
+        ))
+        # Значение и подпись
+        cap_paras = [
+            para(run(line, sz=850, color=WHITE), align="ctr",
+                 space_before=(50 if j else 100))
+            for j, line in enumerate(caption.split("\n"))
+        ]
+        parts.append(filled_box(
+            idg, x, kpi_y + 280000, kpi_w, kpi_h - 280000,
+            para(run(value, sz=2200, bold=True, color=WHITE), align="ctr"),
+            *cap_paras,
+            fill=BLUE, name=f"FinV{i}", anchor="ctr",
+        ))
+
+    # ----- Таблица денежных потоков ---------------------------------------
+    tbl_y = 2080000
     tbl_x = CONTENT_X
-    tbl_y = 1200000
-    tbl_w = 4400000
-    row_h = 360000
-    cols = [2400000, 1100000, tbl_w - 3500000]
+    tbl_w = CONTENT_W
+    label_w = 1300000
+    total_w = 1100000
+    year_w = (tbl_w - label_w - total_w) // 6   # 6 лет: 0..5
+    cols = [label_w] + [year_w] * 6 + [total_w]
+    header = ["Год / показатель", "0", "1", "2", "3", "4", "5", "Итого"]
+    rows = [
+        ("CF, млн ₽",       ["−25,0", "8,0", "18,0", "28,0", "35,0", "38,0", "+127,0"]),
+        ("DCF, млн ₽ (r=18 %)", ["−25,0", "6,8", "12,9", "17,0", "18,1", "16,6", "+71,4"]),
+        ("Накопл. DCF",     ["−25,0", "−18,2", "−5,3", "+11,8", "+29,8", "+46,4", "NPV"]),
+    ]
+
+    parts.append(text_box(
+        idg, CONTENT_X, tbl_y, CONTENT_W, 280000,
+        para(run("ДЕНЕЖНЫЕ ПОТОКИ СТРАТЕГИИ ПРОДВИЖЕНИЯ FACE2",
+                 sz=1100, bold=True, color=BLUE), align="l"),
+        name="CFTitle", anchor="ctr",
+    ))
+
+    cf_y = tbl_y + 280000
+    row_h = 320000
 
     # Шапка
     x = tbl_x
-    for i, h in enumerate(["Метрика", "Цель", "Ед."]):
+    for i, h in enumerate(header):
         parts.append(filled_box(
-            idg, x, tbl_y, cols[i], row_h,
-            para(run(h, sz=1000, bold=True, color=WHITE),
-                 align="ctr" if i else "l"),
-            fill=BLUE, name=f"KPIH{i}", anchor="ctr",
+            idg, x, cf_y, cols[i], row_h,
+            para(run(h, sz=950, bold=True, color=WHITE),
+                 align="l" if i == 0 else "ctr"),
+            fill=BLUE, name=f"CFH{i}", anchor="ctr",
         ))
         x += cols[i]
-    # Строки
-    for r, row in enumerate(kpi_data):
-        y = tbl_y + (r + 1) * row_h
-        x = tbl_x
-        bg = LIGHT_GRAY if r % 2 == 0 else WHITE
-        for i, cell in enumerate(row):
-            color = BLUE if i == 1 else BLACK
-            bold = i == 1
-            parts.append(filled_box(
-                idg, x, y, cols[i], row_h,
-                para(run(cell, sz=950, bold=bold, color=color),
-                     align="ctr" if i else "l"),
-                fill=bg, line_color=GRAY, line_w=3175,
-                name=f"KPI{r}{i}", anchor="ctr",
-            ))
-            x += cols[i]
 
-    # Правая часть: матрица рисков 2×2
-    rx = CONTENT_X + 4600000
-    ry = 800000
-    rw = CONTENT_W - 4600000
+    for r_idx, (label, vals) in enumerate(rows):
+        y = cf_y + (r_idx + 1) * row_h
+        x = tbl_x
+        bg = LIGHT_GRAY if r_idx % 2 == 0 else WHITE
+        # Метка строки
+        parts.append(filled_box(
+            idg, x, y, cols[0], row_h,
+            para(run(label, sz=900, bold=True, color=BLUE), align="l"),
+            fill=bg, line_color=GRAY, line_w=3175,
+            name=f"CFR{r_idx}L", anchor="ctr",
+        ))
+        x += cols[0]
+        for i, v in enumerate(vals):
+            # Подсветка колонки «Итого» светло-синим
+            cell_bg = ACCENT_LIGHT if i == 6 else bg
+            cell_color = BLUE if i == 6 else BLACK
+            cell_bold = i == 6
+            parts.append(filled_box(
+                idg, x, y, cols[i + 1], row_h,
+                para(run(v, sz=950, bold=cell_bold, color=cell_color),
+                     align="ctr"),
+                fill=cell_bg, line_color=GRAY, line_w=3175,
+                name=f"CFR{r_idx}C{i}", anchor="ctr",
+            ))
+            x += cols[i + 1]
+
+    # ----- Полоса с 4 ключевыми рисками -----------------------------------
+    risk_y = 3500000
+    risk_h = 850000
+    risk_gap = 60000
+    risk_w = (CONTENT_W - risk_gap * 3) // 4
 
     parts.append(text_box(
-        idg, rx, ry, rw, 350000,
-        para(run("МАТРИЦА КЛЮЧЕВЫХ РИСКОВ", sz=1200,
-                 bold=True, color=BLUE), align="l"),
-        name="RiskTitle", anchor="ctr",
+        idg, CONTENT_X, risk_y - 280000, CONTENT_W, 250000,
+        para(run("КЛЮЧЕВЫЕ РИСКИ И МЕРЫ ПО ИХ УДЕРЖАНИЮ",
+                 sz=1100, bold=True, color=BLUE), align="l"),
+        name="RisksTitle", anchor="ctr",
     ))
 
-    # 2×2 квадраты рисков
-    grid_y = ry + 400000
-    grid_h = 2700000
-    cell_w = (rw - 60000) // 2
-    cell_h = (grid_h - 60000) // 2
-
     risks = [
-        ("Регуляторный", "ужесточение 572-ФЗ,\nновые штрафы (420-ФЗ,\n421-ФЗ)",
-         "юр. сопровождение,\nаудит соответствия", BLUE),
-        ("Репутационный", "утечка / инцидент,\nволна публикаций",
-         "комплаенс, мониторинг,\nкризис-план", BLUE),
-        ("Технический", "сбои распознавания,\nложные срабатывания",
-         "пилоты, A/B-тесты,\nконтроль FAR/FRR", GRAY),
-        ("Рыночный",     "медленная диффузия,\nпсихологические барьеры",
-         "образовательные форматы,\nкейсы и партнёры", GRAY),
+        ("РЕГУЛЯТОРНЫЙ",  "ужесточение 572-ФЗ, новые штрафы",
+         "юр. сопровождение, аудит соответствия"),
+        ("РЕПУТАЦИОННЫЙ", "утечка биометрии, волна публикаций",
+         "комплаенс, мониторинг, кризис-план"),
+        ("ТЕХНИЧЕСКИЙ",   "ошибки распознавания, FAR/FRR",
+         "A/B-тесты, контроль качества модели"),
+        ("РЫНОЧНЫЙ",      "медленная диффузия, барьеры доверия",
+         "образовательные форматы, кейсы"),
     ]
-    for i, (name, what, mit, color) in enumerate(risks):
-        col, row = i % 2, i // 2
-        x = rx + col * (cell_w + 60000)
-        y = grid_y + row * (cell_h + 60000)
+    for i, (name, threat, mitigation) in enumerate(risks):
+        x = CONTENT_X + i * (risk_w + risk_gap)
         # Шапка
         parts.append(filled_box(
-            idg, x, y, cell_w, 280000,
-            para(run(name, sz=1000, bold=True, color=WHITE),
-                 align="ctr"),
-            fill=color, name=f"Risk{i}H", anchor="ctr",
+            idg, x, risk_y, risk_w, 230000,
+            para(run(name, sz=950, bold=True, color=WHITE), align="ctr"),
+            fill=BLUE, name=f"RH{i}", anchor="ctr",
         ))
         # Тело
         body_paras = [
-            para(run("Угроза:", sz=850, bold=True, color=BLUE)),
-            para(run(what.replace("\n", " "), sz=850, color=BLACK),
-                 space_before=40),
-            para(run("Меры:", sz=850, bold=True, color=BLUE),
-                 space_before=120),
-            para(run(mit.replace("\n", " "), sz=850, color=BLACK),
-                 space_before=40),
+            para(run("Угроза: ", sz=800, bold=True, color=BLUE),
+                 run(threat, sz=800, color=BLACK), align="l"),
+            para(run("Меры: ", sz=800, bold=True, color=BLUE),
+                 run(mitigation, sz=800, color=BLACK), align="l",
+                 space_before=80),
         ]
         parts.append(filled_box(
-            idg, x, y + 280000, cell_w, cell_h - 280000,
+            idg, x, risk_y + 230000, risk_w, risk_h - 230000,
             *body_paras, fill=WHITE, line_color=GRAY, line_w=3175,
-            name=f"Risk{i}B", anchor="t",
+            name=f"RB{i}", anchor="t",
         ))
 
-    # Финальный вывод
+    # ----- Финальный вывод -------------------------------------------------
     parts.append(filled_box(
         idg, CONTENT_X, 4500000, CONTENT_W, 400000,
-        para(run("→ Стратегия экономически эффективна при условии "
-                 "удержания регуляторных и репутационных рисков "
-                 "под контролем",
-                 sz=1100, bold=True, color=WHITE), align="ctr"),
+        para(
+            run("→ Стратегия экономически эффективна: ",
+                sz=1100, bold=True, color=WHITE),
+            run("NPV > 0, IRR (66 %) ≫ r (18 %), PP < 24 мес., PI > 1",
+                sz=1100, bold=False, color=WHITE),
+            align="ctr",
+        ),
         fill=BLUE, name="FinalNote", anchor="ctr",
     ))
 
