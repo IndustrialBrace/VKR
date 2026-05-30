@@ -378,16 +378,24 @@ def _cell_para(text: str, *, bold: bool = False, align: str = "left") -> str:
 
 
 def table(rows: list[list[str]], *, col_widths_cm: list[float] | None = None,
-          header_rows: int = 1) -> str:
+          header_rows: int = 1,
+          aligns: list[str] | None = None) -> str:
     """Сгенерировать таблицу из 2D-списка строк.
 
     rows: [[c1,c2,...], ...]. Первые header_rows строк форматируются с заливкой
-    шапки (полужирный, светло-серая заливка)."""
+    шапки (полужирный, светло-серая заливка).
+    aligns: список выравниваний ячеек тела по столбцам ('left'/'center'/'right').
+    Если None — все колонки тела по левому краю."""
     n_cols = max(len(r) for r in rows) if rows else 1
     if col_widths_cm is None:
         col_widths_cm = [CONTENT_W_CM / n_cols] * n_cols
     col_widths_tw = [int(w * TWIPS_PER_CM) for w in col_widths_cm]
     total_w = sum(col_widths_tw)
+
+    if aligns is None:
+        aligns = ["left"] * n_cols
+    elif len(aligns) < n_cols:
+        aligns = list(aligns) + ["left"] * (n_cols - len(aligns))
 
     # tblGrid
     grid = ''.join(
@@ -431,7 +439,7 @@ def table(rows: list[list[str]], *, col_widths_cm: list[float] | None = None,
                 f'{shading}'
                 '<w:vAlign w:val="center"/>'
                 '</w:tcPr>'
-                f'{_cell_para(str(cell), bold=is_header, align=("center" if is_header else "left"))}'
+                f'{_cell_para(str(cell), bold=is_header, align=("center" if is_header else aligns[cidx]))}'
                 '</w:tc>'
             )
         # Свойства строки: повторять шапку, не разрывать.
@@ -1269,6 +1277,29 @@ def _split_table_row(line: str) -> list[str]:
     return [c.strip() for c in s.split("|")]
 
 
+def _parse_table_alignments(sep_line: str, n_cols: int) -> list[str]:
+    """Разобрать разделитель markdown-таблицы и вернуть список выравниваний
+    ('left' / 'center' / 'right') длиной n_cols.
+
+      `:---:` → center, `---:` → right, `:---` → left, `---` → left.
+    """
+    cells = _split_table_row(sep_line)
+    aligns: list[str] = []
+    for c in cells:
+        c = c.strip()
+        starts = c.startswith(":")
+        ends = c.endswith(":")
+        if starts and ends:
+            aligns.append("center")
+        elif ends:
+            aligns.append("right")
+        else:
+            aligns.append("left")
+    if len(aligns) < n_cols:
+        aligns = aligns + ["left"] * (n_cols - len(aligns))
+    return aligns[:n_cols]
+
+
 def parse_chapter2(md_path: Path) -> list[dict]:
     """Прочитать markdown и вернуть последовательность блоков главы 2.
 
@@ -1367,6 +1398,8 @@ def parse_chapter2(md_path: Path) -> list[dict]:
                 _is_table_separator(chapter_lines[i + 1]):
             flush_paragraph(para_buf); para_buf = []
             header = _split_table_row(chapter_lines[i])
+            sep_line = chapter_lines[i + 1]
+            aligns = _parse_table_alignments(sep_line, len(header))
             i += 2
             data_rows = []
             while i < n and chapter_lines[i].strip().startswith("|"):
@@ -1376,6 +1409,7 @@ def parse_chapter2(md_path: Path) -> list[dict]:
                 "type": "table",
                 "header": header,
                 "rows": data_rows,
+                "aligns": aligns,
             })
             continue
         # Пустая строка — конец абзаца.
@@ -1455,6 +1489,7 @@ def parse_chapter2(md_path: Path) -> list[dict]:
                 "title": title or "",
                 "header": tbl_block["header"] if tbl_block else [],
                 "rows": tbl_block["rows"] if tbl_block else [],
+                "aligns": tbl_block.get("aligns") if tbl_block else None,
                 "source": src or "",
             })
             j = max(consumed) + 1 if consumed else j + 1
@@ -1511,6 +1546,7 @@ def render_blocks(blocks: list[dict]) -> str:
             parts.append(table(
                 rows, col_widths_cm=col_widths_cm,
                 header_rows=1 if b["header"] else 0,
+                aligns=b.get("aligns"),
             ))
             if b["source"]:
                 parts.append(table_source_block(b["source"]))
