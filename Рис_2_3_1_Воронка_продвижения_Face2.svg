@@ -1,89 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" font-family="PT Sans, DejaVu Sans, Arial, sans-serif" font-size="14">
-  <!-- =================== STYLES =================== -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="PT Sans, DejaVu Sans, Arial, sans-serif">
   <defs>
     <style><![CDATA[
-      .title       { fill:#102a4a; font-weight:700; font-size:16px; }
-      .hdr         { fill:#1f3a5f; font-weight:700; font-size:14px; }
-      .stage-box   { fill:#1f3a5f; stroke:#102a4a; stroke-width:1; }
-      .stage-text  { fill:#ffffff; font-weight:700; font-size:13.5px; }
-      .ref-bar     { fill:#2e5d8c; stroke:#1f3a5f; stroke-width:1; }
-      .face-bar    { fill:#c8941c; stroke:#7a5a10; stroke-width:1; }
-      .face-bar-lt { fill:#fbe8b8; stroke:#c8941c; stroke-width:1; }
-      .small-label { fill:#5a3520; font-size:11.5px; font-style:italic; }
-      .axis-line   { stroke:#3b4b66; stroke-width:1; }
-      .legend-text { fill:#1f3a5f; font-size:12px; }
-      .source      { fill:#3b4b66; font-size:11.5px; font-style:italic; }
+      .hdr        { fill:#1f3a5f; font-weight:700; font-size:15px; }
+      .stage-box  { fill:#1f3a5f; stroke:#102a4a; stroke-width:1; }
+      .stage-text { fill:#ffffff; font-weight:700; font-size:13.5px; }
+      .ref        { fill:#2e5d8c; stroke:#1f3a5f; stroke-width:1; }
+      .face       { fill:#c8941c; stroke:#7a5a10; stroke-width:1; }
+      .face-lt    { fill:#fbe8b8; stroke:#c8941c; stroke-width:1; }
+      .note       { fill:#5a3520; font-size:11.5px; font-style:italic; }
     ]]></style>
   </defs>
 
-  <!-- =================== TITLE =================== -->
-  <text class="title" x="600" y="30" text-anchor="middle">
-    Рис. 2.3.1. Воронка продвижения Face2 в сопоставлении с эталонной воронкой
-  </text>
+  <!-- =================== SIDE LABELS =================== -->
+  <text class="hdr" x="200" y="32" text-anchor="middle">Эталон</text>
+  <text class="hdr" x="700" y="32" text-anchor="middle">Face2</text>
 
-  <!-- =================== SIDE HEADERS =================== -->
-  <text class="hdr" x="350" y="70" text-anchor="middle">◄  Эталонная воронка</text>
-  <text class="hdr" x="850" y="70" text-anchor="middle">Воронка Face2  ►</text>
+  <!-- =================== STAGE 1: ОСВЕДОМЛЁННОСТЬ (single, center y=80) =================== -->
+  <rect class="stage-box" x="350" y="58" width="200" height="44" rx="3"/>
+  <text class="stage-text" x="450" y="85" text-anchor="middle">Осведомлённость</text>
+  <rect class="ref"  x="158" y="66" width="192" height="28"/>
+  <rect class="face" x="550" y="66" width="48"  height="28"/>
 
-  <!-- =================== AXIS LINES =================== -->
-  <line class="axis-line" x1="500" y1="85" x2="500" y2="515"/>
-  <line class="axis-line" x1="700" y1="85" x2="700" y2="515"/>
+  <!-- =================== STAGE 2: ИНТЕРЕС (single, center y=130) =================== -->
+  <rect class="stage-box" x="350" y="108" width="200" height="44" rx="3"/>
+  <text class="stage-text" x="450" y="135" text-anchor="middle">Интерес</text>
+  <rect class="ref"  x="182" y="116" width="168" height="28"/>
+  <rect class="face" x="550" y="116" width="36"  height="28"/>
 
-  <!-- =================== STAGE 1: ОСВЕДОМЛЁННОСТЬ (single, center y=120) =================== -->
-  <rect class="stage-box" x="500" y="98" width="200" height="44" rx="3"/>
-  <text class="stage-text" x="600" y="125" text-anchor="middle">Осведомлённость</text>
-  <rect class="ref-bar"  x="308" y="106" width="192" height="28"/>
-  <rect class="face-bar" x="700" y="106" width="48"  height="28"/>
+  <!-- =================== STAGE 3: ДОВЕРИЕ (dual, center y=200) =================== -->
+  <rect class="stage-box" x="350" y="170" width="200" height="60" rx="3"/>
+  <text class="stage-text" x="450" y="205" text-anchor="middle">Доверие</text>
+  <rect class="ref"     x="62"  y="186" width="288" height="28"/>
+  <rect class="face"    x="550" y="182" width="288" height="18"/>
+  <rect class="face-lt" x="550" y="202" width="72"  height="18"/>
+  <text class="note"    x="628" y="215">охват</text>
 
-  <!-- =================== STAGE 2: ИНТЕРЕС (single, center y=180) =================== -->
-  <rect class="stage-box" x="500" y="158" width="200" height="44" rx="3"/>
-  <text class="stage-text" x="600" y="185" text-anchor="middle">Интерес</text>
-  <rect class="ref-bar"  x="332" y="166" width="168" height="28"/>
-  <rect class="face-bar" x="700" y="166" width="36"  height="28"/>
+  <!-- =================== STAGE 4: ПРОБНОЕ ИСПОЛЬЗОВАНИЕ (dual, center y=270) =================== -->
+  <rect class="stage-box" x="350" y="240" width="200" height="60" rx="3"/>
+  <text class="stage-text" x="450" y="275" text-anchor="middle">Пробное использование</text>
+  <rect class="ref"     x="158" y="256" width="192" height="28"/>
+  <rect class="face"    x="550" y="252" width="192" height="18"/>
+  <rect class="face-lt" x="550" y="272" width="18"  height="18"/>
+  <text class="note"    x="574" y="285">вне РТ</text>
 
-  <!-- =================== STAGE 3: ДОВЕРИЕ (dual, center y=255) =================== -->
-  <rect class="stage-box" x="500" y="218" width="200" height="74" rx="3"/>
-  <text class="stage-text" x="600" y="261" text-anchor="middle">Доверие</text>
-  <rect class="ref-bar"     x="212" y="241" width="288" height="28"/>
-  <rect class="face-bar"    x="700" y="236" width="288" height="18"/>
-  <rect class="face-bar-lt" x="700" y="256" width="72"  height="18"/>
-  <text class="small-label" x="778" y="270">массовый охват</text>
+  <!-- =================== STAGE 5: ПРИНЯТИЕ (single, center y=330) =================== -->
+  <rect class="stage-box" x="350" y="308" width="200" height="44" rx="3"/>
+  <text class="stage-text" x="450" y="335" text-anchor="middle">Принятие</text>
+  <rect class="ref"  x="182" y="316" width="168" height="28"/>
+  <rect class="face" x="550" y="316" width="96"  height="28"/>
 
-  <!-- =================== STAGE 4: ПРОБНОЕ ИСПОЛЬЗОВАНИЕ (dual, center y=345) =================== -->
-  <rect class="stage-box" x="500" y="308" width="200" height="74" rx="3"/>
-  <text class="stage-text" x="600" y="351" text-anchor="middle">Пробное использование</text>
-  <rect class="ref-bar"     x="308" y="331" width="192" height="28"/>
-  <rect class="face-bar"    x="700" y="326" width="192" height="18"/>
-  <rect class="face-bar-lt" x="700" y="346" width="18"  height="18"/>
-  <text class="small-label" x="724" y="360">вне РТ</text>
-
-  <!-- =================== STAGE 5: ПРИНЯТИЕ (single, center y=420) =================== -->
-  <rect class="stage-box" x="500" y="398" width="200" height="44" rx="3"/>
-  <text class="stage-text" x="600" y="425" text-anchor="middle">Принятие</text>
-  <rect class="ref-bar"  x="332" y="406" width="168" height="28"/>
-  <rect class="face-bar" x="700" y="406" width="96"  height="28"/>
-
-  <!-- =================== STAGE 6: ЛОЯЛЬНОСТЬ (single, center y=480) =================== -->
-  <rect class="stage-box" x="500" y="458" width="200" height="44" rx="3"/>
-  <text class="stage-text" x="600" y="485" text-anchor="middle">Лояльность</text>
-  <rect class="ref-bar"  x="380" y="466" width="120" height="28"/>
-  <rect class="face-bar" x="700" y="466" width="24"  height="28"/>
-
-  <!-- =================== LEGEND =================== -->
-  <g transform="translate(180, 545)">
-    <rect x="0"   y="0" width="20" height="12" class="ref-bar"/>
-    <text class="legend-text" x="28"  y="10">эталонная воронка</text>
-
-    <rect x="190" y="0" width="20" height="12" class="face-bar"/>
-    <text class="legend-text" x="218" y="10">Face2 — содержательная плотность</text>
-
-    <rect x="490" y="0" width="20" height="12" class="face-bar-lt"/>
-    <text class="legend-text" x="518" y="10">Face2 — массовый охват / вне РТ</text>
-  </g>
-
-  <!-- =================== SOURCE =================== -->
-  <text class="source" x="600" y="585" text-anchor="middle">
-    Источник: составлено автором по данным [27; 28, с. 28–33; 36; 40].
-  </text>
+  <!-- =================== STAGE 6: ЛОЯЛЬНОСТЬ (single, center y=380) =================== -->
+  <rect class="stage-box" x="350" y="358" width="200" height="44" rx="3"/>
+  <text class="stage-text" x="450" y="385" text-anchor="middle">Лояльность</text>
+  <rect class="ref"  x="230" y="366" width="120" height="28"/>
+  <rect class="face" x="550" y="366" width="24"  height="28"/>
 </svg>
