@@ -309,11 +309,18 @@ def _adaptive_widths(rows: list[list[str]], n_cols: int,
     return widths
 
 
-def render_table(header: list[str], rows: list[list[str]]) -> str:
+def render_table(header: list[str], rows: list[list[str]],
+                 aligns: list[str] | None = None) -> str:
     n_cols = max([len(header)] + [len(r) for r in rows]) if rows or header else 1
     widths_cm = _adaptive_widths([header] + rows, n_cols, CONTENT_W_CM)
     widths_tw = [int(w * TWIPS_PER_CM) for w in widths_cm]
     total_w = sum(widths_tw)
+
+    # Выравнивания ячеек тела по столбцам (left/center/right).
+    if aligns is None:
+        aligns = ["left"] * n_cols
+    elif len(aligns) < n_cols:
+        aligns = list(aligns) + ["left"] * (n_cols - len(aligns))
 
     grid = ''.join(f'<w:gridCol w:w="{w}"/>' for w in widths_tw)
     tbl_pr = (
@@ -352,7 +359,7 @@ def render_table(header: list[str], rows: list[list[str]]) -> str:
                 f'{shading}'
                 '<w:vAlign w:val="center"/>'
                 '</w:tcPr>'
-                f'{_cell_para(str(cell), bold=bool(is_header), align=("center" if is_header else "left"))}'
+                f'{_cell_para(str(cell), bold=bool(is_header), align=("center" if is_header else aligns[cidx]))}'
                 '</w:tc>'
             )
         row_pr = (
@@ -388,6 +395,30 @@ def _split_table_row(line: str) -> list[str]:
     if s.endswith("|"):
         s = s[:-1]
     return [c.strip() for c in s.split("|")]
+
+
+def _parse_table_alignments(sep_line: str, n_cols: int) -> list[str]:
+    """Разобрать разделитель markdown-таблицы и вернуть список выравниваний
+    ('left' / 'center' / 'right') длиной n_cols.
+
+    Правила:
+      `:---:` → center, `---:` → right, `:---` → left, `---` → left (по умолчанию).
+    """
+    cells = _split_table_row(sep_line)
+    aligns: list[str] = []
+    for c in cells:
+        c = c.strip()
+        starts = c.startswith(":")
+        ends = c.endswith(":")
+        if starts and ends:
+            aligns.append("center")
+        elif ends:
+            aligns.append("right")
+        else:
+            aligns.append("left")
+    if len(aligns) < n_cols:
+        aligns = aligns + ["left"] * (n_cols - len(aligns))
+    return aligns[:n_cols]
 
 
 def parse_markdown(md_path: Path) -> list[dict]:
@@ -483,12 +514,15 @@ def parse_markdown(md_path: Path) -> list[dict]:
                 _is_table_separator(lines[i + 1]):
             flush_all()
             header = _split_table_row(lines[i])
+            sep_line = lines[i + 1]
+            aligns = _parse_table_alignments(sep_line, len(header))
             i += 2
             data_rows: list[list[str]] = []
             while i < n and lines[i].strip().startswith("|"):
                 data_rows.append(_split_table_row(lines[i]))
                 i += 1
-            blocks.append({"type": "table", "header": header, "rows": data_rows})
+            blocks.append({"type": "table", "header": header,
+                           "rows": data_rows, "aligns": aligns})
             continue
 
         # Маркированный список (- ...)
@@ -546,7 +580,8 @@ def render_blocks(blocks: list[dict]) -> str:
                 parts.append(code_line_para(ln))
             parts.append(empty_para(LINE_SINGLE))
         elif t == "table":
-            parts.append(render_table(b["header"], b["rows"]))
+            parts.append(render_table(b["header"], b["rows"],
+                                      aligns=b.get("aligns")))
         elif t == "hr":
             # горизонтальные линии используем как «мягкий» разделитель —
             # просто пустой абзац (разрыв страницы добавляем перед h1)
