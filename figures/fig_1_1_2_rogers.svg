@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="Times New Roman, serif" font-size="14">
+  <!-- title -->
+  <text x="360" y="24" text-anchor="middle" font-size="15" font-weight="normal">Модель диффузии инноваций Э. Роджерса</text>
+
+  <!-- axes -->
+  <line x1="80" y1="300" x2="680" y2="300" stroke="#333" stroke-width="1.2"/>
+  <line x1="80" y1="60"  x2="80"  y2="300" stroke="#333" stroke-width="1.2"/>
+  <polygon points="680,300 672,296 672,304" fill="#333"/>
+  <polygon points="80,60 76,68 84,68"  fill="#333"/>
+  <text x="688" y="304" font-size="12">время</text>
+  <text x="60"  y="56"  font-size="12">доля, %</text>
+
+  <!-- y-axis grid: 0,10,20,30,40 -->
+  <g stroke="#bbb" stroke-dasharray="2,3">
+    <line x1="80" y1="252" x2="680" y2="252"/>
+    <line x1="80" y1="204" x2="680" y2="204"/>
+    <line x1="80" y1="156" x2="680" y2="156"/>
+    <line x1="80" y1="108" x2="680" y2="108"/>
+  </g>
+  <g font-size="11" fill="#555">
+    <text x="74" y="304" text-anchor="end">0</text>
+    <text x="74" y="256" text-anchor="end">10</text>
+    <text x="74" y="208" text-anchor="end">20</text>
+    <text x="74" y="160" text-anchor="end">30</text>
+    <text x="74" y="112" text-anchor="end">40</text>
+  </g>
+
+  <!-- five segments: positions on x -->
+  <!-- Innovators 2.5%   -> bar height 12px (1px = 1.2%)  -->
+  <!-- Early Adopters 13.5% -> 65 -->
+  <!-- Early Majority 34% -> 163 -->
+  <!-- Late Majority 34% -> 163 -->
+  <!-- Laggards 16% -> 77 -->
+  <g stroke="#234" stroke-width="0.8">
+    <rect x="100" y="288" width="80"  height="12"  fill="#cfe2f3"/>
+    <rect x="180" y="235" width="100" height="65"  fill="#9fc5e8"/>
+    <rect x="280" y="137" width="140" height="163" fill="#6fa8dc"/>
+    <rect x="420" y="137" width="140" height="163" fill="#9fc5e8"/>
+    <rect x="560" y="223" width="100" height="77"  fill="#cfe2f3"/>
+  </g>
+
+  <!-- percentage labels above bars -->
+  <g font-size="13" text-anchor="middle">
+    <text x="140" y="282">2,5 %</text>
+    <text x="230" y="229">13,5 %</text>
+    <text x="350" y="131">34 %</text>
+    <text x="490" y="131">34 %</text>
+    <text x="610" y="217">16 %</text>
+  </g>
+
+  <!-- segment names below axis -->
+  <g font-size="12" text-anchor="middle">
+    <text x="140" y="320">Новаторы</text>
+    <text x="230" y="320">Ранние</text>
+    <text x="230" y="334">последователи</text>
+    <text x="350" y="320">Раннее</text>
+    <text x="350" y="334">большинство</text>
+    <text x="490" y="320">Позднее</text>
+    <text x="490" y="334">большинство</text>
+    <text x="610" y="320">Консерваторы</text>
+  </g>
+
+  <!-- cumulative S-curve overlay -->
+  <path d="M 100,298 Q 200,295 230,278 Q 290,235 350,160 Q 420,90 490,60 Q 560,52 660,50"
+        fill="none" stroke="#cc0000" stroke-width="1.6" stroke-dasharray="4,3"/>
+  <text x="660" y="46" text-anchor="end" font-size="11" fill="#cc0000">кумулятивная доля принявших</text>
+</svg>

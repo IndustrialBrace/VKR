@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" font-family="Times New Roman, serif" font-size="13">
+  <text x="360" y="22" text-anchor="middle" font-size="15">Основные характеристики инновационного продукта</text>
+
+  <rect x="240" y="50" width="240" height="50" rx="6" fill="#fff2cc" stroke="#234"/>
+  <text x="360" y="80" text-anchor="middle">Признаки инновационного продукта</text>
+
+  <g>
+    <rect x="30"  y="160" width="120" height="50" rx="6" fill="#cfe2f3" stroke="#234"/>
+    <rect x="170" y="160" width="120" height="50" rx="6" fill="#cfe2f3" stroke="#234"/>
+    <rect x="310" y="160" width="120" height="50" rx="6" fill="#cfe2f3" stroke="#234"/>
+    <rect x="450" y="160" width="120" height="50" rx="6" fill="#cfe2f3" stroke="#234"/>
+    <rect x="590" y="160" width="120" height="50" rx="6" fill="#cfe2f3" stroke="#234"/>
+
+    <text x="90"  y="183" text-anchor="middle">Новизна</text>
+    <text x="230" y="183" text-anchor="middle">Технологич-</text>
+    <text x="230" y="200" text-anchor="middle">ность</text>
+    <text x="370" y="183" text-anchor="middle">Ценность для</text>
+    <text x="370" y="200" text-anchor="middle">потребителя</text>
+    <text x="510" y="183" text-anchor="middle">Конкуренто-</text>
+    <text x="510" y="200" text-anchor="middle">способность</text>
+    <text x="650" y="183" text-anchor="middle">Повышенный</text>
+    <text x="650" y="200" text-anchor="middle">уровень риска</text>
+  </g>
+
+  <g stroke="#234" stroke-width="1">
+    <line x1="360" y1="100" x2="90"  y2="158"/>
+    <line x1="360" y1="100" x2="230" y2="158"/>
+    <line x1="360" y1="100" x2="370" y2="158"/>
+    <line x1="360" y1="100" x2="510" y2="158"/>
+    <line x1="360" y1="100" x2="650" y2="158"/>
+  </g>
+</svg>
