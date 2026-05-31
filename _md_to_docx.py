@@ -359,7 +359,7 @@ def render_table(header: list[str], rows: list[list[str]],
                 f'{shading}'
                 '<w:vAlign w:val="center"/>'
                 '</w:tcPr>'
-                f'{_cell_para(str(cell), bold=bool(is_header), align=("center" if is_header else aligns[cidx]))}'
+                f'{_cell_para(str(cell), bold=False, align=("center" if is_header else aligns[cidx]))}'
                 '</w:tc>'
             )
         row_pr = (
