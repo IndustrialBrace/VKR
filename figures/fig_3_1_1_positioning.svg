@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" font-family="Times New Roman, serif" font-size="13">
+  <text x="360" y="22" text-anchor="middle" font-size="15">
+    Карта позиционирования Face2 и ключевых конкурентов на российском рынке биометрии
+  </text>
+
+  <!-- Координатное поле 100,60 .. 660,460 -->
+  <!-- Оси -->
+  <line x1="100" y1="460" x2="660" y2="460" stroke="#333" stroke-width="1.4"/>
+  <line x1="380" y1="60"  x2="380" y2="460" stroke="#333" stroke-width="1.4"/>
+
+  <!-- Подписи осей -->
+  <text x="660" y="478" text-anchor="end" font-size="12">Регуляторно-правовой капитал →</text>
+  <text x="100" y="478" text-anchor="start" font-size="12">← слабее</text>
+
+  <g transform="translate(370,55)">
+    <text text-anchor="end" font-size="12">↑ Независимая верификация точности</text>
+  </g>
+  <text x="370" y="465" text-anchor="end" font-size="12">↓ слабее</text>
+
+  <!-- Метки квадрантов -->
+  <g font-size="11" fill="#888">
+    <text x="240" y="80">Сильная верификация,</text>
+    <text x="240" y="94">слабая регуляторика</text>
+
+    <text x="520" y="80">Сильная верификация,</text>
+    <text x="520" y="94">сильная регуляторика</text>
+
+    <text x="240" y="445">Слабая верификация,</text>
+    <text x="240" y="430">слабая регуляторика</text>
+
+    <text x="520" y="445">Слабая верификация,</text>
+    <text x="520" y="430">сильная регуляторика</text>
+  </g>
+
+  <!-- размер кружка отражает банковскую/инфраструктурную экосистему -->
+
+  <!-- VisionLabs: x=низкая регулятор. (банк-вне), y=высокая верификация (NIST FRTE) -->
+  <g>
+    <circle cx="220" cy="140" r="34" fill="#9fc5e8" fill-opacity="0.7" stroke="#234"/>
+    <text x="220" y="142" text-anchor="middle" font-size="13">VisionLabs</text>
+    <text x="220" y="158" text-anchor="middle" font-size="10">38 стран</text>
+  </g>
+
+  <!-- Сбер: x=высокая (через дочки), y=средняя; самый большой круг (масштаб) -->
+  <g>
+    <circle cx="540" cy="280" r="58" fill="#cc0000" fill-opacity="0.55" stroke="#234"/>
+    <text x="540" y="280" text-anchor="middle" font-size="14" fill="#fff">Сбер</text>
+    <text x="540" y="298" text-anchor="middle" font-size="10" fill="#fff">700 тыс. терм.</text>
+  </g>
+
+  <!-- OVISION: x=высокая, y=низкая (нет публичной NIST верификации); средний круг (полный цикл) -->
+  <g>
+    <circle cx="510" cy="400" r="32" fill="#b6d7a8" fill-opacity="0.7" stroke="#234"/>
+    <text x="510" y="402" text-anchor="middle" font-size="13">OVISION</text>
+    <text x="510" y="418" text-anchor="middle" font-size="10">полный цикл</text>
+  </g>
+
+  <!-- Face2: x=высокая (КБС, № 115-ФЗ, ЕБС с 2018), y=низкая по верификации, средний круг -->
+  <g>
+    <circle cx="600" cy="350" r="38" fill="#fce8b2" fill-opacity="0.85" stroke="#cc0000" stroke-width="2"/>
+    <text x="600" y="350" text-anchor="middle" font-size="13" font-weight="normal">Face2</text>
+    <text x="600" y="366" text-anchor="middle" font-size="10">АББ + ЕБС</text>
+  </g>
+
+  <!-- Целевой вектор Face2 -->
+  <line x1="600" y1="350" x2="555" y2="220" stroke="#a04000" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#arrTarget)"/>
+  <defs>
+    <marker id="arrTarget" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#a04000"/>
+    </marker>
+  </defs>
+  <text x="558" y="218" font-size="11" fill="#a04000" text-anchor="end">целевая позиция Face2 (к 2028 г.):</text>
+  <text x="558" y="232" font-size="11" fill="#a04000" text-anchor="end">+ NIST FRTE / iBeta Level 2</text>
+
+  <!-- Легенда внизу -->
+  <g font-size="11">
+    <text x="100" y="498">Размер круга — масштаб банковской/инфраструктурной экосистемы.</text>
+    <text x="100" y="512">Источник: построено автором по данным таблиц 2.2.5, 2.2.6.</text>
+  </g>
+</svg>
